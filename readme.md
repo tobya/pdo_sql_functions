@@ -11,6 +11,11 @@ so that you can do a find and replace adding pdo_ infront of the mysql function 
 
 Then little by little you can update the individual calls to take advantage of more of the features of PDO to increase performance and security.
 
+* [Functions](#Functions)
+* [Connection](#Connection)
+* [New Functions](#New-Functions)
+* [Examples](#Examples)
+
 
 Functions
 =========
@@ -79,4 +84,53 @@ sql statement and have it executed as a PDO prepared statement.
 
 Returns an array with every Row as an associative array.  This is a shortcut for the standard While loop we all use.
 
+Examples
+========
+
+Old Code (with possible hacking vunerability)
+
+	 Define("CURRENTDB_HOST", "Localhost");
+	 Define("CURRENTDB_USER", "root");
+	 Define("CURRENTDB_PASS", "mypass");
+	 Define("CURRENTDB_NAME", "myDB");
+
+    	$DB = mysql_connect(CURRENTDB_HOST,CURRENTDB_USER,CURRENTDB_PASS);
+ 	mysql_select_db(CURRENTDB_NAME,$DB);
+
+        $rs = mysql_query('Select * from mytable where myID = $_GET[UserValueID]');
+	$row = mysql_fetch_Assoc($rs);
+
+	print_r($row);
+
+New Code (minimal changes).  Simple create the connection and change function names to put 'pdo_' in front.  Hacking vulenability is still a possibility, but
+code has been moved to pdo with very little difficulty.
+
+
+	Define("CURRENTDB_HOST", "Localhost");
+	Define("CURRENTDB_USER", "root");
+	Define("CURRENTDB_PASS", "mypass");
+	Define("CURRENTDB_NAME", "myDB");
+
+    	pdo_mysql_CreateConnection(CURRENTDB_HOST,CURRENTDB_USER,CURRENTDB_PASS, CURRENTDB_NAME);
+ 	
+
+        $rs = pdo_mysql_query('Select * from mytable where myID = $_GET[UserValueID]');
+	$row = pdo_mysql_fetch_Assoc($rs);
+
+	print_r($row);
+
+improved code.  change function call and remove hacking vulnerability.
+
+	 Define("CURRENTDB_HOST", "Localhost");
+	 Define("CURRENTDB_USER", "root");
+	 Define("CURRENTDB_PASS", "mypass");
+	 Define("CURRENTDB_NAME", "myDB");
+
+    	pdo_mysql_CreateConnection(CURRENTDB_HOST,CURRENTDB_USER,CURRENTDB_PASS, CURRENTDB_NAME);
+ 	
+
+        $rs = pdo_mysql_query_wfields('Select * from mytable where myID = :UserValueID', Array(':UserValueID' => $_GET['UserValueID']));
+	$row = pdo_mysql_fetch_Assoc($rs);
+
+	print_r($row);
 
