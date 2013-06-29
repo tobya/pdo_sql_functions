@@ -36,6 +36,34 @@ Replacement for `mysql_fetch_row`
 
     function pdo_mysql_get_last_message()
 
+
+
+
+Connection
+----------
+
+You can create a standard PDO connection in the normal way or you can use the supplied `pdo_mysql_CreateConnection` function.  As with the mysql_ functions you 
+can either pass the connection to each call to pdo_mysql_query or you can rely on a global connection.
+
+    //Create a standard PDO connection and attach
+
+    $PDO = new  PDO("mysql:host=localhost;dbname=ImporantDB;charset=utf8",'auser' ,'apassword');
+    pdo_mysql_set_PDOConnection($PDO); 
+    
+    //function will use connection passed above.
+    $rs = pdo_mysql_query('Select * from my table');  
+
+
+or
+
+
+    //Create a PDO connection using new function
+
+     pdo_mysql_CreateConnection('localhost','auser','apass', 'ImportantDB');
+
+    //function will use connection passed above.
+    $rs = pdo_mysql_query('Select * from my table'); 
+
 New Functions
 =============
 

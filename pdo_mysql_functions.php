@@ -18,7 +18,7 @@
  * Date: 29/6/2013
  * url: http://github.com/tobya/
  *
- * Simple PDO wrapper for mssql_ functions
+ * Simple PDO wrapper for mysql_ functions
  */
 
 $__pdo_mysql_CONNECTION = false;
@@ -34,6 +34,7 @@ function pdo_mysql_Set_PDOConnection($pdo)
    global $__pdo_mysql_CONNECTION;
    $__pdo_mysql_CONNECTION = $pdo;
 }
+
 
 function pdo_mysql_query($SQL, $Connection = false, $Batchsize_Ignored = false)
 {
