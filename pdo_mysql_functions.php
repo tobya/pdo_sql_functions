@@ -21,18 +21,18 @@
  * Simple PDO wrapper for mssql_ functions
  */
 
-$pdo_mysql_CONNECTION = false;
+$__pdo_mysql_CONNECTION = false;
 
-function  PDOConnection()
+function  pdo_mysql_PDOConnection()
 {
-   global $pdo_mysql_CONNECTION;
-   return $pdo_mysql_CONNECTION;
+   global $__pdo_mysql_CONNECTION;
+   return $__pdo_mysql_CONNECTION;
 }
 
-function Set_PDOConnection($pdo)
+function pdo_mysql_Set_PDOConnection($pdo)
 {
-   global $pdo_mysql_CONNECTION;
-   $pdo_mysql_CONNECTION = $pdo;
+   global $__pdo_mysql_CONNECTION;
+   $__pdo_mysql_CONNECTION = $pdo;
 }
 
 function pdo_mysql_query($SQL, $Connection = false, $Batchsize_Ignored = false)
@@ -55,7 +55,7 @@ function __pdo_mysql_query($SQL, $Connection = false,  $Fields = false)
 {
   
   if (!$Connection){
-    $PDO = PDOConnection();
+    $PDO = pdo_mysql_PDOConnection();
   } else {
     $PDO = $Connection;
   }
