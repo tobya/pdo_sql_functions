@@ -15,7 +15,7 @@ Then little by little you can update the individual calls to take advantage of m
 * [Connection](#connection)
 * [New Functions](#new-functions)
 * [Examples](#examples)
-
+* [Help Wanted](#help-wanted)
 
 Functions
 =========
@@ -97,7 +97,7 @@ Old Code (with possible hacking vunerability)
     	$DB = mysql_connect(CURRENTDB_HOST,CURRENTDB_USER,CURRENTDB_PASS);
  	mysql_select_db(CURRENTDB_NAME,$DB);
 
-        $rs = mysql_query('Select * from mytable where myID = $_GET[UserValueID]');
+        $rs = mysql_query("Select * from mytable where myID = $_GET[UserValueID]");
 	$row = mysql_fetch_Assoc($rs);
 
 	print_r($row);
@@ -114,7 +114,7 @@ code has been moved to pdo with very little difficulty.
     	pdo_mysql_CreateConnection(CURRENTDB_HOST,CURRENTDB_USER,CURRENTDB_PASS, CURRENTDB_NAME);
  	
 
-        $rs = pdo_mysql_query('Select * from mytable where myID = $_GET[UserValueID]');
+        $rs = pdo_mysql_query("Select * from mytable where myID = $_GET[UserValueID]");
 	$row = pdo_mysql_fetch_Assoc($rs);
 
 	print_r($row);
@@ -129,8 +129,15 @@ improved code.  change function call and remove hacking vulnerability.
     	pdo_mysql_CreateConnection(CURRENTDB_HOST,CURRENTDB_USER,CURRENTDB_PASS, CURRENTDB_NAME);
  	
 
-        $rs = pdo_mysql_query_wfields('Select * from mytable where myID = :UserValueID', Array(':UserValueID' => $_GET['UserValueID']));
+        $rs = pdo_mysql_query_wfields("Select * from mytable where myID = :UserValueID", Array(':UserValueID' => $_GET['UserValueID']));
 	$row = pdo_mysql_fetch_Assoc($rs);
 
 	print_r($row);
+
+Help Wanted
+===========
+
+I have created wrappers for the mysql_ functions I use primarily in my code that allows me to move my own code easily.  I am aware that their are
+[many other mysql_ functions](http://www.php.net/manual/en/ref.mysql.php)  that need to have wrappers created.  If you need these wrapped, create an 
+issue or preferably fork the repo and then submit a patch.
 
