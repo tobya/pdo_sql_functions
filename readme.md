@@ -11,10 +11,10 @@ so that you can do a find and replace adding pdo_ infront of the mysql function 
 
 Then little by little you can update the individual calls to take advantage of more of the features of PDO to increase performance and security.
 
-* [Functions](#Functions)
-* [Connection](#Connection)
-* [New Functions](#New-Functions)
-* [Examples](#Examples)
+* [Functions](#functions)
+* [Connection](#connection)
+* [New Functions](#new-functions)
+* [Examples](#examples)
 
 
 Functions
