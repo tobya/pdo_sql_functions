@@ -41,7 +41,7 @@
     {
         global $__pdo_mysql_CONNECTION;
 
-        $__pdo_mysql_CONNECTION = new PDO("mysql:host=$host;dbname=$database;charset=utf8",$username ,$password);
+        $__pdo_mysql_CONNECTION = new PDO("mysql:host=$host;dbname=$database;charset=utf8", $username, $password);
 
         return $__pdo_mysql_CONNECTION;
     }
