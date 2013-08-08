@@ -85,6 +85,7 @@
     function __pdo_mysql_query_nofields($sql, $pdo)
     {
          $pdo_rs = $pdo->query($sql);
+
          return $pdo_rs;
     }
 
