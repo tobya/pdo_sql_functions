@@ -1,4 +1,4 @@
-  <?php
+	<?php
 
 	/*************************************************************
 	 Copyright © 2013 Toby Allen (http://github.com/tobya)
@@ -37,88 +37,88 @@
 		 $__pdo_mysql_CONNECTION = $pdo;
 	}
 
-	function pdo_mysql_CreateConnection($Host, $Username, $Password, $Database)
+	function pdo_mysql_CreateConnection($host, $username, $password, $database)
 	{
 		global $__pdo_mysql_CONNECTION;
 
-		$__pdo_mysql_CONNECTION = new PDO("mysql:host=$Host;dbname=$Database;charset=utf8",$Username ,$Password);
+		$__pdo_mysql_CONNECTION = new PDO("mysql:host=$host;dbname=$database;charset=utf8",$username ,$password);
 
 		return $__pdo_mysql_CONNECTION;
 	}
 
-	function pdo_mysql_query($SQL, $Connection = false, $Batchsize_Ignored = false)
+	function pdo_mysql_query($sql, $connection = false, $batchsize_ignored = false)
 	{
-		return __pdo_mysql_query($SQL, $Connection);
+		return __pdo_mysql_query($sql, $connection);
 	}
 
-	function pdo_mysql_query_wfields($SQL, $Fields, $Connection = false)
+	function pdo_mysql_query_wfields($sql, $fields, $connection = false)
 	{
-		return __pdo_mysql_query($SQL, $Connection, $Fields);
+		return __pdo_mysql_query($sql, $connection, $fields);
 	}
 
-	function __pdo_mysql_query($SQL, $Connection = false, $Fields = false)
+	function __pdo_mysql_query($sql, $connection = false, $fields = false)
 	{
-		if (! $Connection)
+		if (! $connection)
 		{
-			$PDO = pdo_mysql_PDOConnection();
+			$pdo = pdo_mysql_PDOConnection();
 		}
 		else
 		{
-			$PDO = $Connection;
+			$pdo = $connection;
 		}
 
 		// No fields info provided, just execute sql and return.
 		//
-		if ($Fields == false)
+		if ($fields == false)
 		{
-			return __pdo_mysql_query_nofields($SQL, $PDO);
+			return __pdo_mysql_query_nofields($sql, $pdo);
 		}
 
 		// Fields info is available so prepare sql and execute.
 		//
-		$PDO_RS = $PDO->prepare($SQL);
-		$PDO_RS->execute($Fields);
+		$pdo_rs = $pdo->prepare($sql);
+		$pdo_rs->execute($fields);
 
-		return $PDO_RS;
+		return $pdo_rs;
 	}
 
-	function __pdo_mysql_query_nofields($SQL, $PDO)
+	function __pdo_mysql_query_nofields($sql, $pdo)
 	{
-		 $PDO_RS = $PDO->query($SQL);
-		 return $PDO_RS;
+		 $pdo_rs = $pdo->query($sql);
+		 return $pdo_rs;
 	}
 
-	function pdo_mysql_fetch_assoc($PDO_RS)
+	function pdo_mysql_fetch_assoc($pdo_rs)
 	{
-		 $row = $PDO_RS->fetch(PDO::FETCH_ASSOC);
+		 $row = $pdo_rs->fetch(PDO::FETCH_ASSOC);
 
 		 return $row;
 	}
 
-	function pdo_mysql_fetch_array($PDO_RS)
+	function pdo_mysql_fetch_array($pdo_rs)
 	{
-		 $row = $PDO_RS->fetch(PDO::FETCH_BOTH);
+		 $row = $pdo_rs->fetch(PDO::FETCH_BOTH);
 
 		 return $row;
 	}
 
-	function pdo_mysql_fetch_row($PDO_RS)
+	function pdo_mysql_fetch_row($pdo_rs)
 	{
-		 $row = $PDO_RS->fetch(PDO::FETCH_NUM);
+		 $row = $pdo_rs->fetch(PDO::FETCH_NUM);
 
 		 return $row;
 	}
 
-	function pdo_mysql_error($PDO_RS)
+	function pdo_mysql_error($pdo_rs)
 	{
 		// I'm not sure this will return last message
 		//
-		return $PDO->errorInfo();
+		return $pdo->errorInfo();
 	}
 
-	function pdo_mysql_fetchall_assoc($PDO_RS)
+	function pdo_mysql_fetchall_assoc($pdo_rs)
 	{
-		return $PDO_RS->fetchAll(PDO::FETCH_ASSOC);
+		return $pdo_rs->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 ?>
