@@ -10,7 +10,7 @@ function mssql_connect($Host, $Username, $pass, $SelectDB){
 	return $mssql_connect_db;
 }
 
-functions mssql_query($SQL ){
+function mssql_query($SQL ){
 	$rs = pdo_mssql_query($SQL);
 	return $rs;
 }
