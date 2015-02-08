@@ -36,24 +36,54 @@ only be used as   a stepping stone to get an old codebase converted with minimum
 
 include('pdo_mssql_functions.php');
 
-$mssql_connect_db = null;
 
-function mssql_connect($Host, $Username, $pass, $SelectDB){
+$replace_mssql_connect_pdo = array();
 
-	$mssql_connect_db = new PDO("sqlsrv:Server=$Host;Database=$SelectDB;ConnectionPooling=0",$Username, $pass);
-	return $mssql_connect_db;
+/*Will not actually connect until select_db is called.*/
+function mssql_connect($Host, $Username, $pass){
+
+	global $replace_mssql_connect_pdo;	
+
+	
+
+	$replace_mssql_connect_pdo = array(
+	 
+	 'Pass' => $pass,
+	 'User' => $Username,
+	 'Host' => $Host
+
+	);
+
+
+	return true;
+}
+
+function mssql_select_db($DBName) {
+
+	global $replace_mssql_connect_pdo;
+
+	$mssql_connect_pdo = new PDO(	"sqlsrv:Server=$replace_mssql_connect_pdo[Host];Database=$DBName;ConnectionPooling=0",
+									$replace_mssql_connect_pdo['User'], 
+									$replace_mssql_connect_pdo['Pass']);
+
+	$replace_mssql_connect_pdo[	 'PDO_CONN'] = $mssql_connect_pdo;
+
+	return $mssql_connect_pdo;	
 }
 
 function mssql_query($SQL ){
-	$rs = pdo_mssql_query($SQL);
+	global $replace_mssql_connect_pdo;
+	$rs = pdo_mssql_query($SQL,$replace_mssql_connect_pdo['PDO_CONN']);
 	return $rs;
 }
 
 function mssql_fetch_assoc($rs){
+	
 	return	pdo_mssql_fetch_assoc($rs);
 }
 
 function mssql_fetch_row($rs){
+
 return	pdo_mssql_fetch_row($rs);
 }
 
@@ -63,7 +93,7 @@ return	pdo_mssql_fetch_array($rs);
 
 function mssql_get_last_message( ){
 
-
+	global $mssql_connect_pdo;
 
 	$errArray = pdo_mssql_get_last_message();
 	$errString = ''; //empty string, no error.
