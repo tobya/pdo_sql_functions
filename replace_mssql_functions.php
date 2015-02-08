@@ -61,7 +61,18 @@ function mssql_fetch_array($rs){
 return	pdo_mssql_fetch_array($rs);
 }
 
-function mssql_get_last_message(){
-return pdo_mssql_get_last_message();
+function mssql_get_last_message( ){
+
+
+
+	$errArray = pdo_mssql_get_last_message();
+	$errString = ''; //empty string, no error.
+	if ($errArray[0] <> 0){
+		foreach ($errArray as $key => $value) {
+			$errString .= "$key=$value;";
+		}
+	}
+
+	return $errString;
 }
 
