@@ -1,1 +1,2 @@
-bak
+#ignore editor backup files
+.bak
