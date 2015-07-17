@@ -133,6 +133,35 @@ improved code.  change function call and remove hacking vulnerability.
 	$row = pdo_mysql_fetch_Assoc($rs);
 
 	print_r($row);
+	
+Complete Replacement
+=========================
+
+If you have an old project that uses mssql_ functions everywhere and you want to completely replace with pdo_mssql_ functions you can use the `replace_mssql_functions.php` file.  You need to not load the mssql extension into php at all or you will recieve errors.
+
+Now when you call
+
+    mssql_query($sql)
+    
+it will call the function with that name in `replace_mssql_functions.php`
+
+Currently the following functions are available.
+
+    function mssql_connect($Host, $Username, $pass){
+
+    function mssql_select_db($DBName) {
+
+    function mssql_query($SQL ){
+
+    function mssql_fetch_assoc($rs){
+
+    function mssql_fetch_row($rs){
+
+    function mssql_fetch_array($rs){
+
+    function mssql_get_last_message( ){
+    
+I use this in a project of my own and so far works without incident.  If you need other functions please fork and push.
 
 Help Wanted
 ===========
