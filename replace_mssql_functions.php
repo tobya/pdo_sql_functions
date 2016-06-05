@@ -34,7 +34,7 @@ only be used as   a stepping stone to get an old codebase converted with minimum
 
 */
 
-include('pdo_mssql_functions.php');
+include_once('pdo_mssql_functions.php');
 
 
 $replace_mssql_connect_pdo = array();

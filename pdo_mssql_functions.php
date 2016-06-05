@@ -23,7 +23,7 @@
 
 $PDO_MSSQL_CONNECTION = false;
 
-function  PDOConnection()
+function  get_PDOConnection()
 {
    global $PDO_MSSQL_CONNECTION;
    return $PDO_MSSQL_CONNECTION;
@@ -84,26 +84,33 @@ function __pdo_mssql_query_nofields($SQL, $PDO)
 
 function pdo_mssql_fetch_assoc($PDO_RS)
 {
+  if ($PDO_RS != false) {
+
    $row = $PDO_RS->fetch(PDO::FETCH_ASSOC);
    return $row;
+  }
 }
 
 function pdo_mssql_fetch_array($PDO_RS)
 {
+   if ($PDO_RS != false) {
    $row = $PDO_RS->fetch(PDO::FETCH_BOTH);
    return $row;
+ }
 }
 
 function pdo_mssql_fetch_row($PDO_RS)
 {
+   if ($PDO_RS != false) {
    $row = $PDO_RS->fetch(PDO::FETCH_NUM);
    return $row;
+ }
 }
 
 function pdo_mssql_get_last_message()
 {
 //  I'm not sure this will return last message
-  return $PDO->errorInfo();
+//  return $PDO->errorInfo();
 }
 
 function pdo_mssql_fetchall_assoc($PDO_RS)
