@@ -62,7 +62,7 @@ function mssql_select_db($DBName) {
 
 	global $replace_mssql_connect_pdo;
 
-	$mssql_connect_pdo = new PDO(	"sqlsrv:Server=$replace_mssql_connect_pdo[Host];Database=$DBName;ConnectionPooling=0",
+	$mssql_connect_pdo = new PDO(	"sqlsrv:Server=$replace_mssql_connect_pdo[Host];Database=$DBName;ConnectionPooling=0;TrustServerCertificate=true;",
 									$replace_mssql_connect_pdo['User'], 
 									$replace_mssql_connect_pdo['Pass']);
 
